@@ -5,9 +5,9 @@ import (
 
 	abci "github.com/tendermint/tendermint/abci/types"
 	dbm "github.com/tendermint/tm-db"
-	"gitghub.com/tendermint/tendermint/libs/log"
+	"github.com/tendermint/tendermint/libs/log"
 
-	"gitghub.com/wlsaud619/hellochain/starter"
+	"github.com/wlsaud619/hellochain/starter"
 )
 
 const appName = "hellochain"
