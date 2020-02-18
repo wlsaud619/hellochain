@@ -4,15 +4,15 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	app "github.com/wlsaud619/hellochain"
-	"github.com/wlsaud619/hellochain/starter"
+	"github.com/cosmos/sdk-tutorials/hellochain/starter"
 )
 
 func main() {
 
 	params := starter.NewServerCommandParams (
-		"hcd"  // 명렁어 이름
-		"hellochain AppDaemon"  // 설명
-		starter.NewApp.Creator(app.NewHelloChainApp),  // 앱을 구성하기 위한 method
+		"hcd",  // 명렁어 이름
+		"hellochain AppDaemon",  // 설명
+		starter.NewAppCreator(app.NewHelloChainApp),  // 앱을 구성하기 위한 method
 		starter.NewAppExporter(app.NewHelloChainApp),  // chain state를 내보내기 위한 method
 	)
 

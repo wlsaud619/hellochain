@@ -4,12 +4,14 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	app "github.com/wlsaud619/hellochain"
-	"github.com/wlsaud619/hellochain/starter"
+	"github.com/cosmos/sdk-tutorials/hellochain/starter"
+	"github.com/wlsaud619/hellochain/x/greeter"
 )
 
 func main() {
 
-	starter.BuildModuleBasics()
+	// starter.BuildModuleBasics()
+	starter.BuildModuleBasics(greeter.AppModuleBasic{})
 
 	rootCmd := starter.NewCLICommand()
 
@@ -19,7 +21,7 @@ func main() {
 	// Tx, Query 명령어 추가 
 	app.ModuleBasics.AddTxCommands(txCmd, starter.Cdc)
 	app.ModuleBasics.AddQueryCommands(queryCmd, starter.Cdc)
-	rootCmd.AddCommand(txCmd, QueryCmd)
+	rootCmd.AddCommand(txCmd, queryCmd)
 
 	executor := cli.PrepareMainCmd(rootCmd, "HC", starter.DefaultCLIHome)
 	err := executor.Execute()
