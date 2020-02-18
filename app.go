@@ -31,17 +31,17 @@ type helloChainApp struct {
 // NewHelloChainApp은 완전히  구성된 SDK Application을 반환한다
 func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 
-	// 우리의 starter를 홛장시키기 위한 구성으로 
 	// appName, tendermint의 logger, tendermint의 db를 사용하여 새로운 appStarter를 생성한다
+	// ModuleBasicsManager에 포함시키기 위해 greeter의 AppModuleBasic을 전달
 	appStarter := starter.NewAppStarter(appName, logger, db, greeter.AppModuleBasic{})
 
-	//
+	// greeter의 store key를 만든다
 	greeterKey := sdk.NewKVStoreKey(greeter.StoreKey)
 
-	//
+	// keeper 생성
 	greeterKeeper := greeter.NewKeeper(greeterKey, appStarter.Cdc)
 
-	// 우리의 starter로 app을 구성한다 
+	// starter 및 greeter로 app을 구성한다
 	var app = &helloChainApp {
 		appStarter,
 
@@ -49,11 +49,11 @@ func NewHelloChainApp(logger log.Logger, db dbm.DB) abci.Application {
 		greeterKeeper,
 	}
 
-	//
+	// greeter의 완전한 AppModule을 ModuleManager에 추가한다
 	greeterMod := greeter.NewAppModule(greeterKeeper)
 	app.Mm.Modules[greeterMod.Name()] = greeterMod
 
-	//
+	// main store에 greeter의 data를 위한 하위 공간을 만든다
 	app.MountStore(greeterKey, sdk.StoreTypeDB)
 
 
